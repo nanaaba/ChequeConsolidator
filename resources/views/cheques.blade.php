@@ -261,7 +261,7 @@
 
                 $('#banks').append($('<option>', {
                     value: item.bank_name,
-                    text: item.bank_name
+                    text: item.bank_name +'- '+item.account_type+' - '+item.account_no
                 }));
             });
 
