@@ -31,14 +31,13 @@
                             <thead>
                                 <tr>
 
-                                    <th>Date of payment  </th>
-                                    <th> Cheque Date</th>
-                                    <th>Name of Payee </th>
-                                    <th>Amount</th>
-                                    <th>Cheque  issuers name</th>
+                                    <th> Issue Date  </th>
+                                    <th>Receiver Name </th>
+
                                     <th> Issuing Bank </th>
-                                    <th> Receivers Bank </th>
-                                    <th> Deposited By </th>
+                                    <th>Cheque Number </th>
+                                    <th> Narration </th>
+                                    <th>Amount</th>
 
 
                                 </tr>
@@ -59,45 +58,40 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" >New Cheque</h4>
             </div>
-            <form id="saveCommodityForm">
-                <div class="modal-body">
+            <form id="savechequeForm">
+                <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
+                <div class="modal-body">
                     <div class="form-group">
-                        <label for="region" class="control-label">Date of payment:</label>
-                        <input type="date" class="form-control datepicker" name="paymentdate"  required>
+                        <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
+                        <input type="text" class="form-control" name="receiver_name"  required>
                     </div>
                     <div class="form-group">
-                        <label for="region" class="control-label"> Cheque Date:</label>
-                        <input type="date" class="form-control datepicker" name="chequedate"  required>
+                        <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+                        <input type="date" class="form-control datepicker" name="issue_date"  required>
+                    </div>
+
+                    <div class="form-group ">
+                        <label for="region" class="control-label">Bank:</label>
+                        <select class="form-control select2" name="bank" id="banks" required>
+                            <option value="">Select --</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="region" class="control-label">Name of Payee:</label>
-                        <input type="text" class="form-control" name="payeename"  required>
+                        <label for="region" class="control-label">Cheque Number:</label>
+                        <input type="text" class="form-control" name="cheque_number"  required>
                     </div>
                     <div class="form-group">
-                        <label for="region" class="control-label">Currency:</label>
-                        <input type="text" class="form-control" name="currency"  required>
+                        <label for="region" class="control-label">Cheque Narration:</label>
+                        <input type="text" class="form-control" name="cheque_narrtion"  required>
                     </div>
+
                     <div class="form-group">
                         <label for="region" class="control-label">Amount:</label>
                         <input type="text" class="form-control" name="amount"  required>
                     </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Cheque  issuers name:</label>
-                        <input type="text" class="form-control" name="issuers_name"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Issuing Bank:</label>
-                        <input type="text" class="form-control" name="issuing_bank"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Receivers Bank:</label>
-                        <input type="text" class="form-control" name="receivers_banks"  required>
-                    </div> 
-                    <div class="form-group">
-                        <label for="region" class="control-label">Deposited By:</label>
-                        <input type="text" class="form-control" name="deposited_by"  required>
-                    </div>
+
+
 
                 </div>
                 <div class="modal-footer">
@@ -183,7 +177,140 @@
 @section('customjs')
 <script type="text/javascript">
 
-    $('#bankTbl').DataTable();
+    var datatable = $('#bankTbl').DataTable();
+
+    $('#savechequeForm').on('submit', function (e) {
+        e.preventDefault();
+        // var validator = $("#saveRegionForm").validate();
+        var formData = $(this).serialize();
+        console.log(formData);
+        $('input:submit').attr("disabled", true);
+        $.ajax({
+            url: "{{url('cheques/issued')}}",
+            type: "POST",
+            data: formData,
+            success: function (data) {
+                console.log(data);
+                $('#commodityModal').modal('hide');
+
+                document.getElementById("savechequeForm").reset();
+
+                if (data == 0) {
+                    getCheques();
+                    Command: toastr["success"]("Data Saved Successfully", "Success");
+
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    getBanks();
+                } else {
+                    Command: toastr["error"]("Couldnt Save", "Error");
+
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                }
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                swal("Error!", "Couldnt save:Duplicate entry,name already exist", "error");
+            }
+        });
+
+
+
+
+    });
+
+
+    $.ajax({
+        url: "{{url('bank/all')}}",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+
+            console.log('data' + data);
+            $.each(data, function (i, item) {
+
+                $('#banks').append($('<option>', {
+                    value: item.bank_name,
+                    text: item.bank_name
+                }));
+            });
+
+        }
+    });
+    getCheques();
+
+    function getCheques()
+    {
+
+
+
+        $.ajax({
+            url: "{{url('cheques/all')}}",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                console.log(data);
+                datatable.clear().draw();
+
+                if (data.length == 0) {
+                    console.log("NO DATA!");
+                } else {
+                    $.each(data, function (key, value) {
+
+
+                        var j = -1;
+                        var r = new Array();
+                        // represent columns as array
+                        r[++j] = '<td>' + value.issue_date + '</td>';
+                        r[++j] = '<td>' + value.receiver_name + '</td>';
+                        r[++j] = '<td>' + value.issuingbank + '</td>';
+                        r[++j] = '<td>' + value.chequeno + '</td>';
+                          r[++j] = '<td>' + value.narration + '</td>';
+                        r[++j] = '<td>' + value.amount + '</td>';
+
+                        rowNode = datatable.row.add(r);
+                    });
+
+                    rowNode.draw().node();
+                }
+
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                swal("Error!", "Error", "error");
+            }
+        });
+    }
 
 </script>
 @endsection

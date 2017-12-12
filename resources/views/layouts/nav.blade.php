@@ -26,12 +26,19 @@
 
                             </li>
                              <li class="sidenav-item {{ Request::is('cheques*') ? 'active' : '' }}" >
-                                <a href="{{ url('cheques') }}">
+                                <a href="{{ url('cheques/issued') }}">
                                     <span class="sidenav-icon icon icon-list"></span>
-                                    <span class="sidenav-label">Cheques Payments </span>
+                                    <span class="sidenav-label">Issued Cheques  </span>
                                 </a>
 
                             </li>
+<!--                            <li class="sidenav-item {{ Request::is('cheques*') ? 'active' : '' }}" >
+                                <a href="{{ url('cheques/deposited') }}">
+                                    <span class="sidenav-icon icon icon-list"></span>
+                                    <span class="sidenav-label">Deposited Cheques  </span>
+                                </a>
+
+                            </li>-->
                             
                              <li class="sidenav-item {{ Request::is('reports*') ? 'active' : '' }}"  >
                                 <a href="{{ url('reports') }}">

@@ -24,7 +24,11 @@ Route::get('/banks', function () {
 
     return view('banks');
 });
-Route::get('/cheques', function () {
+Route::get('/cheques/issued', function () {
+
+    return view('cheques');
+});
+Route::get('/cheques/deposited', function () {
 
     return view('cheques');
 });
@@ -32,3 +36,7 @@ Route::get('/reports', function () {
 
     return view('reports');
 });
+Route::get('bank/all', 'BankController@getBanks');
+Route::post('banks/savebank', 'BankController@saveBank');
+Route::post('cheques/issued', 'BankController@saveIssuedCheque');
+Route::get('cheques/all', 'BankController@getCheques');

@@ -31,12 +31,11 @@
                             <thead>
                                 <tr>
 
-                                    <th>Bank Account Name </th>
-                                    <th>Bank</th>
+                                    <th>Bank  </th>
+                                    <th>Account Number</th>
+                                    <th>Account Type</th>
                                     <th>Branch</th>
-                                    <th>Location</th>
                                     <th>Relationship Officer </th>
-                                    <th>Relationship Contact </th>
 
 
                                 </tr>
@@ -57,22 +56,38 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" >New Bank</h4>
             </div>
-            <form id="saveCommodityForm">
-                <div class="modal-body">
+            <form id="saveBankForm">
+                <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
-                    <div class="form-group">
-                        <label for="region" class="control-label">Bank Account Name:</label>
-                        <input type="text" class="form-control" name="account_name"  required>
-                    </div>
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="region" class="control-label">Bank  Name:</label>
                         <input type="text" class="form-control" name="bank_name"  required>
                     </div>
                     <div class="form-group">
+                        <label for="region" class="control-label">Bank Account Name:</label>
+                        <input type="text" class="form-control" name="account_name"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="region" class="control-label"> Account Number:</label>
+                        <input type="text" class="form-control" name="account_number"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="region" class="control-label"> Account Type:</label>
+                        <input type="text" class="form-control" name="account_type"  required>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="region" class="control-label"> Currency:</label>
+                        <input type="text" class="form-control" name="currency"  required>
+
+                    </div>
+
+                    <div class="form-group">
                         <label for="region" class="control-label">Branch:</label>
                         <input type="text" class="form-control" name="branch"  required>
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label for="region" class="control-label">Location:</label>
                         <input type="text" class="form-control" name="location"  required>
                     </div>
@@ -169,7 +184,121 @@
 @section('customjs')
 <script type="text/javascript">
 
-$('#bankTbl').DataTable();
-    
+    var datatable = $('#bankTbl').DataTable();
+    $('#saveBankForm').on('submit', function (e) {
+        e.preventDefault();
+        // var validator = $("#saveRegionForm").validate();
+        var formData = $(this).serialize();
+        console.log(formData);
+        $('input:submit').attr("disabled", true);
+        $.ajax({
+            url: "{{url('banks/savebank')}}",
+            type: "POST",
+            data: formData,
+            success: function (data) {
+                console.log(data);
+                $('#commodityModal').modal('hide');
+
+                document.getElementById("saveBankForm").reset();
+
+                if (data == 0) {
+
+                    Command: toastr["success"]("Data Saved Successfully", "Success");
+
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                    getBanks();
+                } else {
+                    Command: toastr["error"]("Couldnt Save", "Error");
+
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
+                }
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                swal("Error!", "Couldnt save:Duplicate entry,name already exist", "error");
+            }
+        });
+
+
+
+
+    });
+
+    getBanks();
+    function getBanks()
+    {
+
+
+
+        $.ajax({
+            url: "{{url('bank/all')}}",
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+
+                console.log(data);
+                datatable.clear().draw();
+
+                if (data.length == 0) {
+                    console.log("NO DATA!");
+                } else {
+                    $.each(data, function (key, value) {
+
+
+                        var j = -1;
+                        var r = new Array();
+                        // represent columns as array
+                        r[++j] = '<td>' + value.bank_name + '</td>';
+                        r[++j] = '<td>' + value.account_no + '</td>';
+                        r[++j] = '<td>' + value.account_type + '</td>';
+                        r[++j] = '<td>' + value.branch + '</td>';
+                        r[++j] = '<td>' + value.relationship_officer + '</td>';
+
+                        rowNode = datatable.row.add(r);
+                    });
+
+                    rowNode.draw().node();
+                }
+
+            },
+            error: function (jXHR, textStatus, errorThrown) {
+                swal("Error!", "Error", "error");
+            }
+        });
+    }
+
+
+
 </script>
 @endsection
