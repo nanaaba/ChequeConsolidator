@@ -5,19 +5,98 @@
 <div class="layout-content-body">
 
     <div class="text m-b">
-        <h3 class="m-b-0">Banks</h3>
+        <h3 class="m-b-0">New Bank</h3>
     </div>
 
     <div class="row">
-        <div class="col-xs-12">
-            <div class="col-md-10 ">
+        <div class="panel">
+            <div class="panel-body">
+                <form id="saveBankForm">
+                    <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
-            </div>
-            <div class="col-md-2 ">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Bank</button>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Bank  Name:</label>
+                            <input type="text" class="form-control" name="bank_name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label for="region" class="control-label">Bank Account Name:</label>
+                            <input type="text" class="form-control" name="account_name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label for="region" class="control-label"> Account Number:</label>
+                            <input type="text" class="form-control" name="account_number"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Account Type:</label>
+                            <select class="form-control select2" name="account_type"  required>
+                                <option value="">Select --</option>
+                                <option value="Savings">Savings</option>
+                                <option value="Current">Current</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label"> Currency:</label>
+                            <input type="text" class="form-control" name="currency"  required>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                        <div class="form-group">
+                            <label for="region" class="control-label">Branch:</label>
+                            <input type="text" class="form-control" name="branch"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Location:</label>
+                            <input type="text" class="form-control" name="location"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Relationship Officer:</label>
+                            <input type="text" class="form-control" name="relationship_officer"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Relationship Contact:</label>
+                            <input type="text" class="form-control" name="relationship_contact"  required>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-4 pull-right">
+                        <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </div>
+
+    <!--    <div class="row">
+            <div class="col-xs-12">
+                <div class="col-md-10 ">
+    
+                </div>
+                <div class="col-md-2 ">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Bank</button>
+                </div>
+            </div>
+        </div>-->
 
     <div style="margin-bottom:5px;">
 
@@ -26,6 +105,7 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-body">
+                    <h3 class="m-b-0">Banks</h3>
                     <div class="table-responsive">
                         <table id="bankTbl" class="table table-middle nowrap">
                             <thead>
@@ -72,10 +152,15 @@
                         <label for="region" class="control-label"> Account Number:</label>
                         <input type="text" class="form-control" name="account_number"  required>
                     </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label"> Account Type:</label>
-                        <input type="text" class="form-control" name="account_type"  required>
 
+
+                    <div class="form-group ">
+                        <label for="region" class="control-label">Account Type:</label>
+                        <select class="form-control select2" name="account_type"  required>
+                            <option value="">Select --</option>
+                            <option value="Savings">Savings</option>
+                            <option value="Current">Current</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="region" class="control-label"> Currency:</label>

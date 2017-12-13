@@ -5,19 +5,77 @@
 <div class="layout-content-body">
 
     <div class="text m-b">
-        <h3 class="m-b-0">Cheques Payments</h3>
+        <h4 class="m-b-0"> New Payments Cheques</h4>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="col-md-10 ">
-
+    <!--    <div class="row">
+            <div class="col-xs-12">
+                <div class="col-md-10 ">
+    
+                </div>
+                <div class="col-md-2 ">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
+                </div>
             </div>
-            <div class="col-md-2 ">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
+        </div>-->
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <!--                 <h4 class="m-b-0">New Payment Cheque</h4>-->
+                <form id="savechequeForm">
+                    <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
+                            <input type="text" class="form-control" name="receiver_name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+                            <input type="date" class="form-control datepicker" name="issue_date"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Bank:</label>
+                            <select class="form-control select2" name="bank" id="banks" required>
+                                <option value="">Select --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Cheque Number:</label>
+                            <input type="text" class="form-control" name="cheque_number"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Cheque Narration:</label>
+                            <textarea cols="5" style="width: 100%" name="cheque_narrtion"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Amount:</label>
+                            <input type="text" class="form-control" name="amount"  required>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row col-md-4 pull-right">
+                        <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+
 
     <div style="margin-bottom:5px;">
 
@@ -26,6 +84,8 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-body">
+                    <h4 class="m-b-0">  Payments Cheques</h4>
+
                     <div class="table-responsive">
                         <table id="bankTbl" class="table table-middle nowrap">
                             <thead>
@@ -261,7 +321,7 @@
 
                 $('#banks').append($('<option>', {
                     value: item.bank_name,
-                    text: item.bank_name +'- '+item.account_type+' - '+item.account_no
+                    text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
                 }));
             });
 
@@ -275,7 +335,7 @@
 
 
         $.ajax({
-            url: "{{url('cheques/all')}}",
+            url: "{{url('cheques/getpayments')}}",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -296,7 +356,7 @@
                         r[++j] = '<td>' + value.receiver_name + '</td>';
                         r[++j] = '<td>' + value.issuingbank + '</td>';
                         r[++j] = '<td>' + value.chequeno + '</td>';
-                          r[++j] = '<td>' + value.narration + '</td>';
+                        r[++j] = '<td>' + value.narration + '</td>';
                         r[++j] = '<td>' + value.amount + '</td>';
 
                         rowNode = datatable.row.add(r);

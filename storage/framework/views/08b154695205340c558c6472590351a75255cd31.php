@@ -25,20 +25,20 @@
                                 </a>
 
                             </li>
-                             <li class="sidenav-item <?php echo e(Request::is('cheques*') ? 'active' : ''); ?>" >
+                             <li class="sidenav-item <?php echo e(Request::is('cheques/issued') ? 'active' : ''); ?>" >
                                 <a href="<?php echo e(url('cheques/issued')); ?>">
                                     <span class="sidenav-icon icon icon-list"></span>
-                                    <span class="sidenav-label">Issued Cheques  </span>
+                                    <span class="sidenav-label">Payments Cheques  </span>
                                 </a>
 
                             </li>
-<!--                            <li class="sidenav-item <?php echo e(Request::is('cheques*') ? 'active' : ''); ?>" >
+                            <li class="sidenav-item <?php echo e(Request::is('cheques/deposited') ? 'active' : ''); ?>" >
                                 <a href="<?php echo e(url('cheques/deposited')); ?>">
                                     <span class="sidenav-icon icon icon-list"></span>
                                     <span class="sidenav-label">Deposited Cheques  </span>
                                 </a>
 
-                            </li>-->
+                            </li>
                             
                              <li class="sidenav-item <?php echo e(Request::is('reports*') ? 'active' : ''); ?>"  >
                                 <a href="<?php echo e(url('reports')); ?>">

@@ -26,11 +26,11 @@ Route::get('/banks', function () {
 });
 Route::get('/cheques/issued', function () {
 
-    return view('cheques');
+    return view('paymentcheques');
 });
 Route::get('/cheques/deposited', function () {
 
-    return view('cheques');
+    return view('depositedcheques');
 });
 Route::get('/reports', function () {
 
@@ -39,4 +39,6 @@ Route::get('/reports', function () {
 Route::get('bank/all', 'BankController@getBanks');
 Route::post('banks/savebank', 'BankController@saveBank');
 Route::post('cheques/issued', 'BankController@saveIssuedCheque');
-Route::get('cheques/all', 'BankController@getCheques');
+Route::get('cheques/getpayments', 'BankController@getPaymentsCheques');
+Route::get('cheques/getdeposits', 'BankController@getDepositCheques');
+Route::post('cheques/deposited', 'BankController@saveDepositedCheque');

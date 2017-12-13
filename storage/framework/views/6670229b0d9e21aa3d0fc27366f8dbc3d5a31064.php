@@ -3,86 +3,7 @@
 <div class="layout-content-body">
 
     <div class="text m-b">
-        <h3 class="m-b-0">New Bank</h3>
-    </div>
-
-    <div class="row">
-        <div class="panel">
-            <div class="panel-body">
-                <form id="saveBankForm">
-                    <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
-
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Bank  Name:</label>
-                            <input type="text" class="form-control" name="bank_name"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-                            <label for="region" class="control-label">Bank Account Name:</label>
-                            <input type="text" class="form-control" name="account_name"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-                            <label for="region" class="control-label"> Account Number:</label>
-                            <input type="text" class="form-control" name="account_number"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Account Type:</label>
-                            <select class="form-control select2" name="account_type"  required>
-                                <option value="">Select --</option>
-                                <option value="Savings">Savings</option>
-                                <option value="Current">Current</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label"> Currency:</label>
-                            <input type="text" class="form-control" name="currency"  required>
-
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <div class="form-group">
-                            <label for="region" class="control-label">Branch:</label>
-                            <input type="text" class="form-control" name="branch"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Location:</label>
-                            <input type="text" class="form-control" name="location"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Relationship Officer:</label>
-                            <input type="text" class="form-control" name="relationship_officer"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Relationship Contact:</label>
-                            <input type="text" class="form-control" name="relationship_contact"  required>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-4 pull-right">
-                        <button type="submit" class="btn btn-primary btn-block">Save</button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
+        <h4 class="m-b-0"> New Payments Cheques</h4>
     </div>
 
     <!--    <div class="row">
@@ -91,10 +12,68 @@
     
                 </div>
                 <div class="col-md-2 ">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Bank</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
                 </div>
             </div>
         </div>-->
+
+    <div class="row">
+        <div class="panel">
+            <div class="panel-body">
+                <!--                 <h4 class="m-b-0">New Payment Cheque</h4>-->
+                <form id="savechequeForm">
+                    <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
+
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
+                            <input type="text" class="form-control" name="receiver_name"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+                            <input type="date" class="form-control datepicker" name="issue_date"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Bank:</label>
+                            <select class="form-control select2" name="bank" id="banks" required>
+                                <option value="">Select --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Cheque Number:</label>
+                            <input type="text" class="form-control" name="cheque_number"  required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Cheque Narration:</label>
+                            <textarea cols="5" style="width: 100%" name="cheque_narrtion"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="region" class="control-label">Amount:</label>
+                            <input type="text" class="form-control" name="amount"  required>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row col-md-4 pull-right">
+                        <button type="submit" class="btn btn-primary btn-block">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <div style="margin-bottom:5px;">
 
@@ -103,17 +82,20 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-body">
-                    <h3 class="m-b-0">Banks</h3>
+                    <h4 class="m-b-0">  Payments Cheques</h4>
+
                     <div class="table-responsive">
                         <table id="bankTbl" class="table table-middle nowrap">
                             <thead>
                                 <tr>
 
-                                    <th>Bank  </th>
-                                    <th>Account Number</th>
-                                    <th>Account Type</th>
-                                    <th>Branch</th>
-                                    <th>Relationship Officer </th>
+                                    <th> Issue Date  </th>
+                                    <th>Receiver Name </th>
+
+                                    <th> Issuing Bank </th>
+                                    <th>Cheque Number </th>
+                                    <th> Narration </th>
+                                    <th>Amount</th>
 
 
                                 </tr>
@@ -132,56 +114,42 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" >New Bank</h4>
+                <h4 class="modal-title" >New Cheque</h4>
             </div>
-            <form id="saveBankForm">
+            <form id="savechequeForm">
                 <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="region" class="control-label">Bank  Name:</label>
-                        <input type="text" class="form-control" name="bank_name"  required>
+                        <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
+                        <input type="text" class="form-control" name="receiver_name"  required>
                     </div>
                     <div class="form-group">
-                        <label for="region" class="control-label">Bank Account Name:</label>
-                        <input type="text" class="form-control" name="account_name"  required>
+                        <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+                        <input type="date" class="form-control datepicker" name="issue_date"  required>
                     </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label"> Account Number:</label>
-                        <input type="text" class="form-control" name="account_number"  required>
-                    </div>
-
 
                     <div class="form-group ">
-                        <label for="region" class="control-label">Account Type:</label>
-                        <select class="form-control select2" name="account_type"  required>
+                        <label for="region" class="control-label">Bank:</label>
+                        <select class="form-control select2" name="bank" id="banks" required>
                             <option value="">Select --</option>
-                            <option value="Savings">Savings</option>
-                            <option value="Current">Current</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="region" class="control-label"> Currency:</label>
-                        <input type="text" class="form-control" name="currency"  required>
+                        <label for="region" class="control-label">Cheque Number:</label>
+                        <input type="text" class="form-control" name="cheque_number"  required>
+                    </div>
+                    <div class="form-group">
+                        <label for="region" class="control-label">Cheque Narration:</label>
+                        <input type="text" class="form-control" name="cheque_narrtion"  required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="region" class="control-label">Amount:</label>
+                        <input type="text" class="form-control" name="amount"  required>
                     </div>
 
-                    <div class="form-group">
-                        <label for="region" class="control-label">Branch:</label>
-                        <input type="text" class="form-control" name="branch"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Location:</label>
-                        <input type="text" class="form-control" name="location"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Relationship Officer:</label>
-                        <input type="text" class="form-control" name="relationship_officer"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for="region" class="control-label">Relationship Contact:</label>
-                        <input type="text" class="form-control" name="relationship_contact"  required>
-                    </div>
+
 
                 </div>
                 <div class="modal-footer">
@@ -268,24 +236,25 @@
 <script type="text/javascript">
 
     var datatable = $('#bankTbl').DataTable();
-    $('#saveBankForm').on('submit', function (e) {
+
+    $('#savechequeForm').on('submit', function (e) {
         e.preventDefault();
         // var validator = $("#saveRegionForm").validate();
         var formData = $(this).serialize();
         console.log(formData);
         $('input:submit').attr("disabled", true);
         $.ajax({
-            url: "<?php echo e(url('banks/savebank')); ?>",
+            url: "<?php echo e(url('cheques/issued')); ?>",
             type: "POST",
             data: formData,
             success: function (data) {
                 console.log(data);
                 $('#commodityModal').modal('hide');
 
-                document.getElementById("saveBankForm").reset();
+                document.getElementById("savechequeForm").reset();
 
                 if (data == 0) {
-
+                    getCheques();
                     Command: toastr["success"]("Data Saved Successfully", "Success");
 
                     toastr.options = {
@@ -338,14 +307,33 @@
 
     });
 
-    getBanks();
-    function getBanks()
+
+    $.ajax({
+        url: "<?php echo e(url('bank/all')); ?>",
+        type: "GET",
+        dataType: 'json',
+        success: function (data) {
+
+            console.log('data' + data);
+            $.each(data, function (i, item) {
+
+                $('#banks').append($('<option>', {
+                    value: item.bank_name,
+                    text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
+                }));
+            });
+
+        }
+    });
+    getCheques();
+
+    function getCheques()
     {
 
 
 
         $.ajax({
-            url: "<?php echo e(url('bank/all')); ?>",
+            url: "<?php echo e(url('cheques/getpayments')); ?>",
             type: "GET",
             dataType: "json",
             success: function (data) {
@@ -362,11 +350,12 @@
                         var j = -1;
                         var r = new Array();
                         // represent columns as array
-                        r[++j] = '<td>' + value.bank_name + '</td>';
-                        r[++j] = '<td>' + value.account_no + '</td>';
-                        r[++j] = '<td>' + value.account_type + '</td>';
-                        r[++j] = '<td>' + value.branch + '</td>';
-                        r[++j] = '<td>' + value.relationship_officer + '</td>';
+                        r[++j] = '<td>' + value.issue_date + '</td>';
+                        r[++j] = '<td>' + value.receiver_name + '</td>';
+                        r[++j] = '<td>' + value.issuingbank + '</td>';
+                        r[++j] = '<td>' + value.chequeno + '</td>';
+                        r[++j] = '<td>' + value.narration + '</td>';
+                        r[++j] = '<td>' + value.amount + '</td>';
 
                         rowNode = datatable.row.add(r);
                     });
@@ -380,8 +369,6 @@
             }
         });
     }
-
-
 
 </script>
 <?php $__env->stopSection(); ?>

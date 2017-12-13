@@ -53,7 +53,7 @@ class BankController extends Controller {
         $new->chequeno = $data['cheque_number'];
         $new->narration = $data['cheque_narrtion'];
         $new->amount = $data['amount'];
-        $new->cheque_type_system = 'issuer';
+        $new->cheque_type_system = 'payments';
 
         $new->created_by = '1';
         $saved = $new->save();
@@ -64,8 +64,39 @@ class BankController extends Controller {
         }
     }
 
-    public function getCheques() {
-        return Cheque::all();
+    public function saveDepositedCheque(Request $request) {
+
+        $data = $request->all();
+        $new = new Cheque();
+
+        $new->receivingbank = $data['bank'];
+        $new->date_deposited = $data['deposited_date'];
+        $new->clearing_date = $data['clearing_date'];
+        $new->chequeno = $data['cheque_number'];
+        $new->narration = $data['cheque_narrtion'];
+        $new->amount = $data['amount']; //cheque_type 
+        $new->cheque_type = $data['cheque_type']; //
+        $new->currency = $data['currency'];
+
+        $new->cheque_type_system = 'deposit';
+//currency
+        $new->created_by = '1';
+        $saved = $new->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    public function getPaymentsCheques() {
+        return Cheque::where('cheque_type_system', 'payments')
+                        ->get();
+    }
+
+    public function getDepositCheques() {
+        return Cheque::where('cheque_type_system', 'deposit')
+                        ->get();
     }
 
 }
