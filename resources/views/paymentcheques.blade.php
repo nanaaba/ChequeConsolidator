@@ -33,11 +33,16 @@
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
-                            <input type="date" class="form-control datepicker" name="issue_date"  required>
+                      
+                         <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+
+                        <div class="input-with-icon">
+                           
+                            <input class="form-control" type="text" name="issue_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                            <span class="icon icon-calendar input-icon"></span>
                         </div>
                     </div>
+
                     <div class="col-md-4">
                         <div class="form-group ">
                             <label for="region" class="control-label">Bank:</label>

@@ -27,71 +27,78 @@
                 <form id="savechequeForm">
                     <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
                     <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Bank Name</label>
-                            <input type="text" class="form-control" name="bank"  required>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Bank Name</label>
+                                <input type="text" class="form-control" name="bank"  required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Date Deposited:</label>
-                            <input type="date" class="form-control datepicker" name="deposited_date"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Clearing Date :</label>
-                            <input type="date" class="form-control datepicker" name="clearing_date"  required>
-                        </div>
-                    </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Date Deposited:</label>
+                                <div class="input-with-icon">
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Cheque Number:</label>
-                            <input type="text" class="form-control" name="cheque_number"  required>
+                                    <input class="form-control" type="text" name="deposited_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                    <span class="icon icon-calendar input-icon"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Clearing Date :</label>
+                                <div class="input-with-icon">
+                                    <input class="form-control" type="text" name="clearing_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                    <span class="icon icon-calendar input-icon"></span>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Cheque Type:</label>
-                            <select class="form-control select2" name="cheque_type"  >
-                                <option value="">Select --</option>
-                                <option value="Post Dated">Post Dated</option>
-                            </select>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Cheque Number:</label>
+                                <input type="text" class="form-control" name="cheque_number"  required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Cheque Narration:</label>
-                            <input type="text" class="form-control" name="cheque_narrtion"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Currency:</label>
-                            <select class="form-control select2" name="currency"  required>
-                                <option value="">Select --</option>
-                                <option value="GHS">GHS</option>
-                                <option value="USD">USD</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Amount:</label>
-                            <input type="text" class="form-control" name="amount"  required>
-                        </div>
-                    </div>
 
-            </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Cheque Type:</label>
+                                <select class="form-control select2" name="cheque_type"  >
+                                    <option value="">Select --</option>
+                                    <option value="Post Dated">Post Dated</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Cheque Narration:</label>
+                                <input type="text" class="form-control" name="cheque_narrtion"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Currency:</label>
+                                <select class="form-control select2" name="currency"  required>
+                                    <option value="">Select --</option>
+                                    <option value="GHS">GHS</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Amount:</label>
+                                <input type="text" class="form-control" name="amount"  required>
+                            </div>
+                        </div>
+
+                    </div>
 
 
                     <div class="row ">
                         <div class="col-md-4 pull-right">
-                        <button type="submit" class="btn btn-primary btn-block">Save</button>
-                    </div>
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        </div>
                     </div>
                 </form>
             </div>
