@@ -56,7 +56,7 @@
                     <div class="col-md-4">
                         <div class="form-group ">
                             <label for="region" class="control-label">Cheque Type:</label>
-                            <select class="form-control select2" name="cheque_type"  required>
+                            <select class="form-control select2" name="cheque_type"  >
                                 <option value="">Select --</option>
                                 <option value="Post Dated">Post Dated</option>
                             </select>

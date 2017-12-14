@@ -36,9 +36,15 @@ Route::get('/reports', function () {
 
     return view('reports');
 });
+
+Route::get('monitoring', function () {
+
+    return view('chequemonitoring');
+});
 Route::get('bank/all', 'BankController@getBanks');
 Route::post('banks/savebank', 'BankController@saveBank');
 Route::post('cheques/issued', 'BankController@saveIssuedCheque');
 Route::get('cheques/getpayments', 'BankController@getPaymentsCheques');
 Route::get('cheques/getdeposits', 'BankController@getDepositCheques');
 Route::post('cheques/deposited', 'BankController@saveDepositedCheque');
+//monitoring
