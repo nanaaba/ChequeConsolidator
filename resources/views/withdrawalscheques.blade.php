@@ -69,7 +69,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="region" class="control-label">Cheque Narration:</label>
-                            <textarea cols="5" style="width: 100%" name="cheque_narrtion"></textarea>
+                            <input type="text" class="form-control"  name="cheque_narrtion"/>
                         </div>
                     </div>
                     <div class="col-md-4">

@@ -152,51 +152,51 @@
                                 ' </tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Total Deposits:</td>' +
-                                '<td class="col-xs-6">' +
-                                value.total_deposits +
+                                '<td class="col-xs-6"><span class="badge badge-info">'  +  value.total_deposits +'</span>' +
+                            
                                 '</td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Total Withdrawals:</td>' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-warning">' +
                                 value.total_withdrawals +
-                                '</td>' +
+                                '</span></td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 ' <td class="col-xs-6">Pending(Withdrawals):</td>' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
                                 value.pending_payments +
-                                ' </td>' +
+                                ' </span></td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Cleared(Withdrawals):</td>' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
                                 value.cleared_payments +
-                                '</td>' +
+                                '</span></td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Bounced(Withdrawals):</td> ' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
                                 value.bounced_payments +
-                                '</td>' +
+                                '</span></td>' +
                                 '</tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Pending(Deposit):</td>' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-outline-default">' +
                                 value.pending_deposit +
-                                '</td>' +
+                                '</span></td>' +
                                 ' </tr>' +
                                 '<tr>' +
                                 ' <td class="col-xs-6">Cleared(Deposit):</td>' +
-                                ' <td class="col-xs-6">' +
+                                ' <td class="col-xs-6"><span class="badge badge-outline-default">' +
                                 value.cleared_deposit +
-                                ' </td>' +
+                                '</span> </td>' +
                                 ' </tr>' +
                                 ' <tr>' +
                                 '  <td class="col-xs-6">Bounced(Deposit):</td>' +
-                                '<td class="col-xs-6">' +
+                                '<td class="col-xs-6"><span class="badge badge-outline-default">' +
                                 value.bounced_deposit +
-      ' </td>' +
+      ' </span></td>' +
                                 '</tr>' +
                                 ' </tbody>' +
                                 ' </table>' +
