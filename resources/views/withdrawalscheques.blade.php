@@ -5,7 +5,7 @@
 <div class="layout-content-body">
 
     <div class="text m-b">
-        <h4 class="m-b-0"> New Payments Cheques</h4>
+        <h4 class="m-b-0"> New Withdrawal Cheque</h4>
     </div>
 
     <!--    <div class="row">
@@ -27,30 +27,39 @@
                     <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
                     <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Company:</label>
+                            <select class="form-control select2" name="company_id" id="companies"  required>
+                                <option value="">Select --</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group ">
+                            <label for="region" class="control-label">Bank:</label>
+                            <select class="form-control select2" name="bank" id="banks" required>
+                                <option value="">Loading --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
                             <input type="text" class="form-control" name="receiver_name"  required>
                         </div>
                     </div>
                     <div class="col-md-4">
-                      
-                         <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+
+                        <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
 
                         <div class="input-with-icon">
-                           
-                            <input class="form-control" type="text" name="issue_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+
+                            <input class="form-control" type="text" name="issue_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
                             <span class="icon icon-calendar input-icon"></span>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Bank:</label>
-                            <select class="form-control select2" name="bank" id="banks" required>
-                                <option value="">Select --</option>
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="region" class="control-label">Cheque Number:</label>
@@ -89,17 +98,19 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-body">
-                    <h4 class="m-b-0">  Payments Cheques</h4>
+                    <h4 class="m-b-0">  Withdrawal Cheques</h4>
 
                     <div class="table-responsive">
                         <table id="bankTbl" class="table table-middle nowrap">
                             <thead>
                                 <tr>
-
+   <th> Company </th>
+                                     <th> Issuing Bank </th>
+                                     
                                     <th> Issue Date  </th>
                                     <th>Receiver Name </th>
 
-                                    <th> Issuing Bank </th>
+                                   
                                     <th>Cheque Number </th>
                                     <th> Narration </th>
                                     <th>Amount</th>
@@ -314,9 +325,8 @@
 
     });
 
-
     $.ajax({
-        url: "{{url('bank/all')}}",
+        url: "{{url('companies/all')}}",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -324,14 +334,44 @@
             console.log('data' + data);
             $.each(data, function (i, item) {
 
-                $('#banks').append($('<option>', {
-                    value: item.bank_name,
-                    text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
+                $('#companies').append($('<option>', {
+                    value: item.id,
+                    text: item.name
                 }));
             });
 
         }
     });
+
+    $('#companies').change(function () {
+
+        var company_id = $(this).val();
+        console.log('company id :' + company_id);
+        getCompanyBanks(company_id);
+    });
+
+    function getCompanyBanks(companyid) {
+        $.ajax({
+            url: "../companies/banks/" + companyid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                $('#banks').html("");
+                $('#banks').append('<option value="">Select --</option>');
+                console.log('data' + data);
+                $.each(data, function (i, item) {
+
+                    $('#banks').append($('<option>', {
+                        value: item.id,
+                        text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
+                    }));
+                });
+
+            }
+        });
+    }
+
+
     getCheques();
 
     function getCheques()
@@ -357,9 +397,11 @@
                         var j = -1;
                         var r = new Array();
                         // represent columns as array
+                         r[++j] = '<td>' + value.company_name + '</td>';
+                        r[++j] = '<td>' + value.bank_name + '</td>';
                         r[++j] = '<td>' + value.issue_date + '</td>';
                         r[++j] = '<td>' + value.receiver_name + '</td>';
-                        r[++j] = '<td>' + value.issuingbank + '</td>';
+
                         r[++j] = '<td>' + value.chequeno + '</td>';
                         r[++j] = '<td>' + value.narration + '</td>';
                         r[++j] = '<td>' + value.amount + '</td>';

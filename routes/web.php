@@ -20,18 +20,12 @@ Route::get('/dashboard', function () {
 
     return view('dashboard');
 });
-Route::get('/banks', function () {
 
-    return view('banks');
-});
-Route::get('/cheques/issued', function () {
+Route::get('companies', 'CompanyController@showcompanies');
+Route::get('banks', 'BankController@showbanks');
+Route::get('cheques/withdrawals','ChequeController@showwithdrawalcheques');
+Route::get('cheques/deposited','ChequeController@showdepositedcheques');
 
-    return view('paymentcheques');
-});
-Route::get('/cheques/deposited', function () {
-
-    return view('depositedcheques');
-});
 Route::get('/reports', function () {
 
     return view('reports');
@@ -41,10 +35,23 @@ Route::get('monitoring', function () {
 
     return view('chequemonitoring');
 });
+
+
+
+//apis
+Route::get('companies/all', 'CompanyController@getCompanies');
+Route::post('companies/savecompany', 'CompanyController@saveCompany');
+Route::get('companies/banks/{companyid}', 'CompanyController@getCompanyBanks');
+
 Route::get('bank/all', 'BankController@getBanks');
 Route::post('banks/savebank', 'BankController@saveBank');
-Route::post('cheques/issued', 'BankController@saveIssuedCheque');
-Route::get('cheques/getpayments', 'BankController@getPaymentsCheques');
-Route::get('cheques/getdeposits', 'BankController@getDepositCheques');
-Route::post('cheques/deposited', 'BankController@saveDepositedCheque');
-//monitoring
+Route::post('cheques/issued', 'ChequeController@saveWithdrawalCheque');
+Route::get('cheques/getpayments', 'ChequeController@getWithdrawalCheques');
+Route::get('cheques/getdeposits', 'ChequeController@getDepositCheques');
+Route::post('cheques/deposited', 'ChequeController@saveDepositedCheque');
+Route::post('cheques/information', 'ChequeController@getChequeInformation');
+Route::post('cheques/savestatus', 'ChequeController@saveChequeStatus');
+Route::get('cheques/statuses/{chequeid}', 'ChequeController@getChequeStatuses');
+Route::get('cheques/statistics', 'ChequeController@getCompaniesChequesStatistics');
+
+//cheques/statuses/" + chequeid

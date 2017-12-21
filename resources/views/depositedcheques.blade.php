@@ -27,18 +27,31 @@
                 <form id="savechequeForm">
                     <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
                     <div class="row">
+
                         <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="region" class="control-label">Bank Name</label>
-                                <input type="text" class="form-control" name="bank"  required>
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Company:</label>
+                                <select class="form-control select2" name="company_id" id="companies"  required>
+                                    <option value="">Select --</option>
+
+                                </select>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Bank:</label>
+                                <select class="form-control select2" name="bank" id="banks" required>
+                                    <option value="">Loading --</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="region" class="control-label">Date Deposited:</label>
                                 <div class="input-with-icon">
 
-                                    <input class="form-control" type="text" name="deposited_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text" name="deposited_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
                                     <span class="icon icon-calendar input-icon"></span>
                                 </div>
                             </div>
@@ -47,7 +60,7 @@
                             <div class="form-group">
                                 <label for="region" class="control-label">Clearing Date :</label>
                                 <div class="input-with-icon">
-                                    <input class="form-control" type="text" name="clearing_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control" type="text" name="clearing_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
                                     <span class="icon icon-calendar input-icon"></span>
                                 </div>
                             </div>
@@ -75,16 +88,7 @@
                                 <input type="text" class="form-control" name="cheque_narrtion"  required>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group ">
-                                <label for="region" class="control-label">Currency:</label>
-                                <select class="form-control select2" name="currency"  required>
-                                    <option value="">Select --</option>
-                                    <option value="GHS">GHS</option>
-                                    <option value="USD">USD</option>
-                                </select>
-                            </div>
-                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="region" class="control-label">Amount:</label>
@@ -118,7 +122,8 @@
                             <thead>
                                 <tr>
 
-                                    <th> Bank Name  </th>
+                                    <th> Company   </th>
+                                    <th> Bank   </th>
                                     <th>Amount </th>
                                     <th>Cheque Number </th>
                                     <th> Narration </th>
@@ -317,7 +322,7 @@
                         "showMethod": "fadeIn",
                         "hideMethod": "fadeOut"
                     }
-                    getBanks();
+                    //   getBanks();
                 } else {
                     Command: toastr["error"]("Couldnt Save", "Error");
 
@@ -352,7 +357,7 @@
 
 
     $.ajax({
-        url: "{{url('bank/all')}}",
+        url: "{{url('companies/all')}}",
         type: "GET",
         dataType: 'json',
         success: function (data) {
@@ -360,14 +365,46 @@
             console.log('data' + data);
             $.each(data, function (i, item) {
 
-                $('#banks').append($('<option>', {
-                    value: item.bank_name,
-                    text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
+                $('#companies').append($('<option>', {
+                    value: item.id,
+                    text: item.name
                 }));
             });
 
         }
     });
+
+    $('#companies').change(function () {
+
+        var company_id = $(this).val();
+        console.log('company id :' + company_id);
+        getCompanyBanks(company_id);
+    });
+
+
+    function getCompanyBanks(companyid) {
+        $.ajax({
+            url: "../companies/banks/" + companyid,
+            type: "GET",
+            dataType: 'json',
+            success: function (data) {
+                $('#banks').html("");
+                $('#banks').append('<option value="">Select --</option>');
+                console.log('data' + data);
+                $.each(data, function (i, item) {
+
+                    $('#banks').append($('<option>', {
+                        value: item.id,
+                        text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
+                    }));
+                });
+
+            }
+        });
+    }
+
+
+
     getCheques();
 
     function getCheques()
@@ -393,7 +430,8 @@
                         var j = -1;
                         var r = new Array();
                         // represent columns as array
-                        r[++j] = '<td>' + value.receivingbank + '</td>';
+                        r[++j] = '<td>' + value.company_name + '</td>';
+                        r[++j] = '<td>' + value.bank_name + '</td>';
                         r[++j] = '<td>' + value.currency + ' ' + value.amount + '</td>';
                         r[++j] = '<td>' + value.chequeno + '</td>';
                         r[++j] = '<td>' + value.narration + '</td>';
