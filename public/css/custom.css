@@ -12,7 +12,68 @@ and open the template in the editor.
 /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
 
-.label-outline-danger{
-    color: red;
-    border-color: red;
+i.fa {
+
+    //  color: #27ae60;
 }
+
+#map_wrapper {
+    height: 400px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+#loader {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    z-index: 9999;
+    margin-top:30%;
+
+}
+.loader-text{
+
+    color: white;
+    font-size: 24px;
+    font-weight: lighter;
+}
+
+.holder{
+    color:#d81450;
+}
+
+
+.displayTitle{
+    color:#d81450;
+}
+table.dataTable {
+    margin: 0 auto;
+    clear: both;
+    width: 100% !important;
+}
+.selected{
+    background-color: #f2f1ef;
+}
+
+.displayInfo{
+    font-weight: bold;
+}
+/*.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+    text-align: center;
+} */
+
+.bg-info-inverse {
+    background-color: #fff;
+    border-color: #fff;
+    color: #59abe3;
+}
+
+.bg-danger-inverse {
+    background-color: #fff;
+    border-color: #fff;
+    color: #c91f37;
+}
+

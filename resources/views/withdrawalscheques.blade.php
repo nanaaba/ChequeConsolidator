@@ -114,6 +114,8 @@
                                     <th>Cheque Number </th>
                                     <th> Narration </th>
                                     <th>Amount</th>
+  <th>Edit</th> 
+                                     <th>Delete</th>
 
 
                                 </tr>
@@ -400,12 +402,16 @@
                          r[++j] = '<td>' + value.company_name + '</td>';
                         r[++j] = '<td>' + value.bank_name + '</td>';
                         r[++j] = '<td>' + value.issue_date + '</td>';
-                        r[++j] = '<td>' + value.receiver_name + '</td>';
+                        r[++j] = '<td>' + value.beneficiary_name + '</td>';
 
                         r[++j] = '<td>' + value.chequeno + '</td>';
                         r[++j] = '<td>' + value.narration + '</td>';
                         r[++j] = '<td>' + value.amount + '</td>';
-
+ r[++j] = '<td>\n\
+                       <button onclick="editUser(\'' + value.id + '\')" class="btn btn-outline-info btn-sm editBtn"  type="button">Edit</button>\n\
+                         </td>';
+                        r[++j] = '<td>\n\           <button onclick="deleteUser(\'' + value.id + '\',\'' + value.name + '\')" class="btn btn-outline-danger btn-sm editBtn"  type="button">Delete</button>\n\
+                       </td>';
                         rowNode = datatable.row.add(r);
                     });
 

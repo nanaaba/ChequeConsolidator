@@ -25,6 +25,12 @@ Route::get('companies', 'CompanyController@showcompanies');
 Route::get('banks', 'BankController@showbanks');
 Route::get('cheques/withdrawals','ChequeController@showwithdrawalcheques');
 Route::get('cheques/deposited','ChequeController@showdepositedcheques');
+Route::get('account/usergroups','AccountController@showusergroups');
+Route::get('account/assignroles','AccountController@showassignroles');
+Route::get('account/users','AccountController@showusers');
+
+
+
 
 Route::get('/reports', function () {
 
@@ -54,4 +60,52 @@ Route::post('cheques/savestatus', 'ChequeController@saveChequeStatus');
 Route::get('cheques/statuses/{chequeid}', 'ChequeController@getChequeStatuses');
 Route::get('cheques/statistics', 'ChequeController@getCompaniesChequesStatistics');
 
+Route::get('account/getusergroups', 'AccountController@getUserGroups');
+Route::delete('account/usergroup/{id}', 'AccountController@deleteUserGroup');
+Route::put('account/usergroup', 'AccountController@updateUserGroup');
+Route::post('account/usergroup', 'AccountController@saveUserGroup');
+Route::get('account/permissions', 'AccountController@getPermissions');
+Route::get('account/retreivepermissions/{id}', 'AccountController@getGroupPermissions');
+Route::post('account/assigngrouproles', 'AccountController@assignGroupRoles');
+Route::get('account/getusers', 'AccountController@getUsers');
+Route::get('account/user/{id}', 'AccountController@getUserInfo');
+Route::delete('account/deleteuser/{id}', 'AccountController@deleteUser');
+Route::put('account/userinfo', 'AccountController@updateUserInfo');
+Route::post('account/saveuser', 'AccountController@saveUserInfo');
+
+Route::put('cheques/updatedepositedcheque', 'ChequeController@updateCompanyDepositedCheque');
+Route::put('cheques/updatedwithdrawalcheque', 'ChequeController@updateCompanyWithdrawalCheque');
+Route::put('companies/updatecompany', 'CompanyController@updateCompany');
+Route::put('bank/updatecompanybank', 'BankController@updateCompanyBank');
+
+Route::delete('cheques/{id}', 'ChequeController@deleteCompanyCheque');
+Route::delete('companies/{id}', 'CompanyController@deleteCompany');
+Route::delete('bank/companybank/{id}', 'BankController@deleteCompanyBank');
+
+
+Route::get('cheques/{id}', 'ChequeController@getChequeDetail');
+Route::get('bank/{id}', 'BankController@getCompanyBankDetail');
+Route::get('companies/{id}', 'CompanyController@getCompanyDetail');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //cheques/statuses/" + chequeid
+Route::get('/logout', function() {
+        //Uncomment to see the logs record
+        //\Log::info("Session before: ".print_r($request->session()->all(), true));
+         Session::flush();
+        //Uncomment to see the logs record
+        //\Log::info("Session after: ".print_r($request->session()->all(), true));
+        return redirect('/');
+    });

@@ -2,8 +2,9 @@
     <div class="navbar navbar-default">
         <div class="navbar-header">
             <a class="navbar-brand navbar-brand-center" href="#">
-          
+             <img class="navbar-brand-logo" src="<?php echo e(asset('img/peacelogo.png')); ?>" alt="Peace FM">
             </a>
+
             <button class="navbar-toggler visible-xs-block collapsed" type="button" data-toggle="collapse" data-target="#sidenav">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="bars">

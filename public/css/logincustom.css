@@ -11,7 +11,7 @@ caption, th {
     text-align: left;
 }
 h1, h2, h3, h4, h5, h6 {
-    color: white;
+    color: #777;
 }
 q:before, q:after {
     content: '';
@@ -21,7 +21,7 @@ abbr, acronym {
 }
 /* General */
 body {
-   // background: #000;
+    background: #fcfcfc;
     overflow-y: hidden;
     overflow-x: hidden;
 }

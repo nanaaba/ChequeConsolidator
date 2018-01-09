@@ -21,8 +21,10 @@ class BankController extends Controller {
 
     public function getBanks() {
 
-        $banks = DB::table('banks_view')->get();
-        return $banks;
+       // $banks = DB::table('banks_view')->get();
+        return DB::table('banks_view')->where('active', 0)
+                        ->get();
+        //return $banks;
     }
 
     public function saveBank(Request $request) {
@@ -60,6 +62,51 @@ class BankController extends Controller {
         DB::table('companies_banks')->insert(
                 ['company_id' => $companyid, 'bank_id' => $bank_id]
         );
+    }
+    
+    
+      public function updateCompanyBank(Request $request) {
+
+        $data = $request->all();
+        $id = $data['id'];
+        
+        $new = Bank::find($id);
+        $new->bank_name = $data['bank_name'];
+        $new->location = $data['location'];
+        $new->branch = $data['branch'];
+        $new->relationship_officer = $data['relationship_officer'];
+        $new->relationship_contact = $data['relationship_contact'];
+        $new->account_type = $data['account_type'];
+        $new->currency = $data['currency'];
+        $new->account_no = $data['account_number'];
+                $new->company_id = $data['company'];
+
+        $saved = $new->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    public function deleteCompanyBank($id) {
+
+
+        $update = Bank::find($id);
+        $update->active = '1';
+        $saved = $update->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+    
+       public function getCompanyBankDetail($id) {
+        
+        
+        return Bank::where('id', $id)
+                        ->get();
     }
 
 }

@@ -131,6 +131,8 @@
                                     <th> Clearing Date </th>
 
                                     <th>Cheque Type</th>
+  <th>Edit</th> 
+                                     <th>Delete</th>
 
 
                                 </tr>
@@ -435,10 +437,14 @@
                         r[++j] = '<td>' + value.currency + ' ' + value.amount + '</td>';
                         r[++j] = '<td>' + value.chequeno + '</td>';
                         r[++j] = '<td>' + value.narration + '</td>';
-                        r[++j] = '<td>' + value.date_deposited + '</td>';
+                        r[++j] = '<td>' + value.transaction_date + '</td>';
                         r[++j] = '<td>' + value.clearing_date + '</td>';
                         r[++j] = '<td>' + value.cheque_type + '</td>';
-
+ r[++j] = '<td>\n\
+                       <button onclick="editUser(\'' + value.id + '\')" class="btn btn-outline-info btn-sm editBtn"  type="button">Edit</button>\n\
+                         </td>';
+                        r[++j] = '<td>\n\           <button onclick="deleteUser(\'' + value.id + '\',\'' + value.name + '\')" class="btn btn-outline-danger btn-sm editBtn"  type="button">Delete</button>\n\
+                       </td>';
                         rowNode = datatable.row.add(r);
                     });
 

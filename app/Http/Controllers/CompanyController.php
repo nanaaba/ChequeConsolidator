@@ -45,15 +45,51 @@ class CompanyController extends Controller {
 
         try {
 
-           $new->save();
-            
+            $new->save();
+
             return '0';
-            
         } catch (\Illuminate\Database\QueryException $e) {
-            return  'Duplicate entry  for company name. '.$data['name'].' already exist';
+            return 'Duplicate entry  for company name. ' . $data['name'] . ' already exist';
         } catch (PDOException $e) {
-             return  $e->getMessage();
+            return $e->getMessage();
         }
+    }
+
+    public function updateCompany(Request $request) {
+
+        $data = $request->all();
+        $id = $data['companyid'];
+        $new = Company::find($id);
+        $new->name = $data['name'];
+        $new->location = $data['location'];
+        $new->contact = $data['contact'];
+        $new->description = $data['description'];
+        $saved = $new->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    public function deleteCompany($id) {
+
+
+        $update = Company::find($id);
+        $update->active = '1';
+        $saved = $update->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+    
+     public function getCompanyDetail($id) {
+        
+        
+        return Company::where('id', $id)
+                        ->get();
     }
 
 }

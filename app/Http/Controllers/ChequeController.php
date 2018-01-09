@@ -28,15 +28,16 @@ class ChequeController extends Controller {
 
         $data = $request->all();
         $new = new Cheque();
-        
+
         $new->company_id = $data['company_id'];
-        $new->receiver_name = $data['receiver_name'];
+        $new->beneficiary_name = $data['receiver_name'];
+        $new->transaction_date = $data['issue_date'];
         $new->issue_date = $data['issue_date'];
         $new->bank = $data['bank'];
         $new->chequeno = $data['cheque_number'];
         $new->narration = $data['cheque_narrtion'];
         $new->amount = $data['amount'];
-        $new->cheque_type_system = 'payments';
+        $new->cheque_type_system = 'debit';
 
         $new->created_by = '1';
         $saved = $new->save();
@@ -54,14 +55,14 @@ class ChequeController extends Controller {
 
         $new->bank = $data['bank'];
         $new->company_id = $data['company_id'];
-        $new->date_deposited = $data['deposited_date'];
+        $new->transaction_date = $data['deposited_date'];
         $new->clearing_date = $data['clearing_date'];
         $new->chequeno = $data['cheque_number'];
         $new->narration = $data['cheque_narrtion'];
         $new->amount = $data['amount']; //cheque_type 
         $new->cheque_type = $data['cheque_type']; //
 
-        $new->cheque_type_system = 'deposit';
+        $new->cheque_type_system = 'credit';
 //currency
         $new->created_by = '1';
         $saved = $new->save();
@@ -73,14 +74,14 @@ class ChequeController extends Controller {
     }
 
     public function getWithdrawalCheques() {
-        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'payments')->get();
+        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'debit')->get();
 
         return $cheques;
     }
 
     public function getDepositCheques() {
 
-        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'deposit')->get();
+        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'credit')->get();
 
         return $cheques;
     }
@@ -123,12 +124,81 @@ class ChequeController extends Controller {
 
         return $statuses;
     }
-    
+
     public function getCompaniesChequesStatistics() {
 
         $cheques = DB::table('companies_cheques_statistics')->get();
 
         return $cheques;
+    }
+
+    public function updateCompanyDepositedCheque(Request $request) {
+
+        $data = $request->all();
+        $id = $data['id'];
+
+         $new = Cheque::find($id);
+
+        $new->bank = $data['bank'];
+        $new->transaction_date = $data['deposited_date'];
+        $new->clearing_date = $data['clearing_date'];
+        $new->chequeno = $data['cheque_number'];
+        $new->narration = $data['cheque_narrtion'];
+        $new->amount = $data['amount']; //cheque_type 
+        $new->cheque_type = $data['cheque_type']; //
+        $new->reason = $data['reason']; //
+
+        $saved = $new->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+    
+    
+      public function updateCompanyWithdrawalCheque(Request $request) {
+
+        $data = $request->all();
+        $id = $data['id'];
+
+         $new = Cheque::find($id);
+
+      $new->beneficiary_name = $data['receiver_name'];
+        $new->transaction_date = $data['issue_date'];
+        $new->issue_date = $data['issue_date'];
+        $new->bank = $data['bank'];
+        $new->chequeno = $data['cheque_number'];
+        $new->narration = $data['cheque_narrtion'];
+        $new->amount = $data['amount'];
+        $new->reason = $data['reason']; //
+
+        $saved = $new->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+
+    public function deleteCompanyCheque($id) {
+
+
+        $update = Cheque::find($id);
+        $update->active = '1';
+        $saved = $update->save();
+        if (!$saved) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }
+    
+      public function getChequeDetail($id) {
+        
+        
+        return Cheque::where('id', $id)
+                        ->get();
     }
 
 }

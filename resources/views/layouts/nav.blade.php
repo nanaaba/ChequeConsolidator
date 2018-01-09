@@ -61,6 +61,22 @@
                         </a>
 
                     </li>
+                    
+                     <li class="sidenav-item has-subnav {{ Request::is('account*') ? 'active' : '' }}"  >
+                                <a href="#" aria-haspopup="true">
+                                    <span class="sidenav-icon icon icon-files-o"></span>
+                                    <span class="sidenav-label">Account</span>
+                                </a>
+                                <ul class="sidenav-subnav collapse">
+                                    
+                                        <li>  <a href="{{ url('account/usergroups') }}">User Groups</a></li>
+                                       
+                                        <li>  <a href="{{ url('account/assignroles') }}">Assign Roles And Permissions</a></li>
+                                       
+                                        <li>  <a href="{{ url('account/users') }}">Users </a></li>
+                                     
+                                </ul>
+                            </li>
 
                     <li class="sidenav-item {{ Request::is('reports*') ? 'active' : '' }}"  >
                         <a href="{{ url('reports') }}">
