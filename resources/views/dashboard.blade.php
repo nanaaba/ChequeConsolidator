@@ -6,105 +6,7 @@
 
     <div class="row">
         <div class="statistics">
-            <!--               <div class="col-md-4">
-                              <div class="card">
-                                <div class="card-header">
-                                  
-                                  <strong>Koala Company</strong>
-                                </div>
-                                <div class="card-body" data-toggle="match-height" style="">
-                                  <table class="table table-borderless table-middle">
-                                    <tbody>
-                                      <tr>
-                                        <td class="col-xs-6">Bank:</td>
-                                        
-                                        <td class="col-xs-6">
-                                          UBA
-                                        </td>
-                                        
-                                      </tr>
-                                    <tr>
-                                        <td class="col-xs-6">Account No:</td>
-                                        
-                                        <td class="col-xs-6">
-                                          1120000000
-                                        </td>
-                                        
-                                      </tr>
-                                      <tr>
-                                        <td class="col-xs-6">Total Deposits:</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                      
-                                        <tr>
-                                        <td class="col-xs-6">Total Withdrawals:</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                      <tr>
-                                        <td class="col-xs-6">Pending(Withdrawals):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="col-xs-6">Cleared(Withdrawals):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="col-xs-6">Bounced(Withdrawals):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="col-xs-6">Pending(Deposit):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="col-xs-6">Cleared(Deposit):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                       <tr>
-                                        <td class="col-xs-6">Bounced(Deposit):</td>
-                                        
-                                        <td class="col-xs-6">
-                                          5
-                                        </td>
-                                        
-                                      </tr>
-                                      
-                                      
-                                      
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                      
-                            </div>    -->
+           
         </div>
 
     </div>
@@ -135,7 +37,16 @@
                                 '<div class="card-header bg-primary"> ' +
                                 '<strong>' + value.company_name + '</strong>' +
                                 '</div>' +
-                                '<div class="card-body" data-toggle="match-height" style="">' +
+                                '<div class="card-body" >' +
+                                '<ul class="media-list">' +
+                                '<li class="media">' +
+                                '<div class="media media-left">' +
+                                '<a href="{{ url('cheques/withdrawals') }}" class="btn btn-outline-primary btn-sm"> New Withdrawal</a>' +
+                                '<br><br><br>' +
+                                '<a href="{{ url('cheques/deposited') }}" class="btn btn-outline-primary btn-sm">New Deposit</a>' +
+                                '</div>' +
+                                '<div class="media-middle media-body"></div>' +
+                                '<div class="media-middle media-right">' +
                                 '<table class="table table-borderless table-middle">' +
                                 ' <tbody>' +
                                 '  <tr>' +
@@ -152,8 +63,7 @@
                                 ' </tr>' +
                                 '<tr>' +
                                 '<td class="col-xs-6">Total Deposits:</td>' +
-                                '<td class="col-xs-6"><span class="badge badge-info">'  +  value.total_deposits +'</span>' +
-                            
+                                '<td class="col-xs-6"><span class="badge badge-info">' + value.total_deposits + '</span>' +
                                 '</td>' +
                                 '</tr>' +
                                 '<tr>' +
@@ -162,44 +72,11 @@
                                 value.total_withdrawals +
                                 '</span></td>' +
                                 '</tr>' +
-                                '<tr>' +
-                                ' <td class="col-xs-6">Pending(Withdrawals):</td>' +
-                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
-                                value.pending_payments +
-                                ' </span></td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                '<td class="col-xs-6">Cleared(Withdrawals):</td>' +
-                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
-                                value.cleared_payments +
-                                '</span></td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                '<td class="col-xs-6">Bounced(Withdrawals):</td> ' +
-                                '<td class="col-xs-6"><span class="badge badge-outline-primary">' +
-                                value.bounced_payments +
-                                '</span></td>' +
-                                '</tr>' +
-                                '<tr>' +
-                                '<td class="col-xs-6">Pending(Deposit):</td>' +
-                                '<td class="col-xs-6"><span class="badge badge-outline-default">' +
-                                value.pending_deposit +
-                                '</span></td>' +
-                                ' </tr>' +
-                                '<tr>' +
-                                ' <td class="col-xs-6">Cleared(Deposit):</td>' +
-                                ' <td class="col-xs-6"><span class="badge badge-outline-default">' +
-                                value.cleared_deposit +
-                                '</span> </td>' +
-                                ' </tr>' +
-                                ' <tr>' +
-                                '  <td class="col-xs-6">Bounced(Deposit):</td>' +
-                                '<td class="col-xs-6"><span class="badge badge-outline-default">' +
-                                value.bounced_deposit +
-      ' </span></td>' +
-                                '</tr>' +
                                 ' </tbody>' +
                                 ' </table>' +
+                                ' </div>' +
+                                ' </li>' +
+                                ' </ul>' +
                                 ' </div>' +
                                 '</div>' +
                                 '</div>   ');

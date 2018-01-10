@@ -74,14 +74,20 @@ class ChequeController extends Controller {
     }
 
     public function getWithdrawalCheques() {
-        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'debit')->get();
+        $cheques = DB::table('cheque_view')->where(array(
+           'cheque_type_system'=>'debit',
+            'active'=>0
+        ))->get();
 
         return $cheques;
     }
 
     public function getDepositCheques() {
 
-        $cheques = DB::table('cheque_view')->where('cheque_type_system', 'credit')->get();
+        $cheques = DB::table('cheque_view')->where(array(
+           'cheque_type_system'=>'credit',
+            'active'=>0
+        ))->get();
 
         return $cheques;
     }

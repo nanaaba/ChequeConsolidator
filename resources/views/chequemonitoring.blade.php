@@ -21,8 +21,8 @@
                             <label for="region" class="control-label">Type:</label>
                             <select class="form-control select2" name="cheque_type" required>
                                 <option value="">Select --</option>
-                                <option value="payments">Withdrawal</option>
-                                <option value="deposit">Deposit</option>
+                                <option value="debit">Withdrawal</option>
+                                <option value="credit">Deposit</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-6">

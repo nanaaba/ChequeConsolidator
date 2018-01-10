@@ -86,6 +86,7 @@ Route::delete('bank/companybank/{id}', 'BankController@deleteCompanyBank');
 Route::get('cheques/{id}', 'ChequeController@getChequeDetail');
 Route::get('bank/{id}', 'BankController@getCompanyBankDetail');
 Route::get('companies/{id}', 'CompanyController@getCompanyDetail');
+Route::post('getaccountstatement', 'ReportController@getAccountStatement');
 
 
 
