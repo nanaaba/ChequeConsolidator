@@ -17,10 +17,21 @@ use Illuminate\Support\Facades\DB;
 class ChequeController extends Controller {
 
     public function showwithdrawalcheques() {
+        $permissions = Session::get('permissions');
+
+        if (!in_array("VIEW_WITHDRAWAL_CHEQUES", $permissions)) {
+            return redirect('logout');
+        }
         return view('withdrawalscheques');
     }
 
     public function showdepositedcheques() {
+        
+        $permissions = Session::get('permissions');
+
+        if (!in_array("VIEW_DEPOSIT_CHEQUES", $permissions)) {
+            return redirect('logout');
+        }
         return view('depositedcheques');
     }
 
@@ -39,7 +50,7 @@ class ChequeController extends Controller {
         $new->amount = $data['amount'];
         $new->cheque_type_system = 'debit';
 
-        $new->created_by = '1';
+        $new->created_by = Session::get('id');
         $saved = $new->save();
         if (!$saved) {
             return '1';
@@ -64,7 +75,7 @@ class ChequeController extends Controller {
 
         $new->cheque_type_system = 'credit';
 //currency
-        $new->created_by = '1';
+        $new->created_by = Session::get('id');
         $saved = $new->save();
         if (!$saved) {
             return '1';
@@ -117,7 +128,7 @@ class ChequeController extends Controller {
                 ))->first();
 
         if (empty($status_existence->id)) {
-            DB::insert('insert into cheques_status (cheque_id, status,date) values (?, ?,?)', [$cheque_id, $status, $date]);
+            DB::insert('insert into cheques_status (cheque_id, status,date,created_by) values (?, ?,?,?)', [$cheque_id, $status, $date,Session::get('id')]);
             return 0;
         } else {
             return '1';

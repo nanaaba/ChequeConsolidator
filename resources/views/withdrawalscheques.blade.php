@@ -4,92 +4,100 @@
 
 <div class="layout-content-body">
 
-    <div class="text m-b">
-        <h4 class="m-b-0"> New Withdrawal Cheque</h4>
-    </div>
+    <?php
+    $permissions = Session::get('permissions');
 
-    <!--    <div class="row">
-            <div class="col-xs-12">
-                <div class="col-md-10 ">
-    
+    if (in_array("ADD_WITHDRAWAL_CHEQUE", $permissions)) {
+        ?> 
+        <div class="text m-b">
+            <h4 class="m-b-0"> New Withdrawal Cheque</h4>
+        </div>
+
+        <!--    <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-10 ">
+        
+                    </div>
+                    <div class="col-md-2 ">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
+                    </div>
                 </div>
-                <div class="col-md-2 ">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
+            </div>-->
+
+        <div class="row">
+            <div class="panel">
+                <div class="panel-body">
+                    <!--                 <h4 class="m-b-0">New Payment Cheque</h4>-->
+                    <form id="savechequeForm">
+                        <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
+
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Company:</label>
+                                <select class="form-control select2" name="company_id" id="companies"  required>
+                                    <option value="">Select --</option>
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group ">
+                                <label for="region" class="control-label">Bank:</label>
+                                <select class="form-control select2 " name="bank" id="banks" required>
+                                    <option value="">Loading --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
+                                <input type="text" class="form-control" name="receiver_name"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+
+                            <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
+
+                            <div class="input-with-icon">
+
+                                <input class="form-control" type="text" name="issue_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
+                                <span class="icon icon-calendar input-icon"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Cheque Number:</label>
+                                <input type="text" class="form-control" name="cheque_number"  required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Cheque Narration:</label>
+                                <input type="text" class="form-control"  name="cheque_narrtion"/>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="region" class="control-label">Amount:</label>
+                                <input type="text" class="form-control" name="amount"  required>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row col-md-4 pull-right">
+                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        </div>
+                    </form>
                 </div>
-            </div>
-        </div>-->
-
-    <div class="row">
-        <div class="panel">
-            <div class="panel-body">
-                <!--                 <h4 class="m-b-0">New Payment Cheque</h4>-->
-                <form id="savechequeForm">
-                    <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
-
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Company:</label>
-                            <select class="form-control select2" name="company_id" id="companies"  required>
-                                <option value="">Select --</option>
-
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group ">
-                            <label for="region" class="control-label">Bank:</label>
-                            <select class="form-control select2 " name="bank" id="banks" required>
-                                <option value="">Loading --</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Name on the cheque (Who’s been paid)</label>
-                            <input type="text" class="form-control" name="receiver_name"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-
-                        <label for="region" class="control-label">Date of Payment (Issuing Date on the cheque):</label>
-
-                        <div class="input-with-icon">
-
-                            <input class="form-control" type="text" name="issue_date"  data-provide="datepicker" data-date-autoclose="true" data-date-format="yyyy-mm-dd">
-                            <span class="icon icon-calendar input-icon"></span>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Cheque Number:</label>
-                            <input type="text" class="form-control" name="cheque_number"  required>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Cheque Narration:</label>
-                            <input type="text" class="form-control"  name="cheque_narrtion"/>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="region" class="control-label">Amount:</label>
-                            <input type="text" class="form-control" name="amount"  required>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="row col-md-4 pull-right">
-                        <button type="submit" class="btn btn-primary btn-block">Save</button>
-                    </div>
-                </form>
             </div>
         </div>
-    </div>
 
+        <?php
+    }
+    ?>
 
     <div style="margin-bottom:5px;">
 
@@ -114,9 +122,19 @@
                                     <th>Cheque Number </th>
                                     <th> Narration </th>
                                     <th>Amount</th>
-                                    <th>Edit</th> 
-                                    <th>Delete</th>
+                                    <?php
+                                    if (in_array("EDIT_CHEQUE", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELETE_CHEQUE", $permissions)) {
+                                        ?>  
 
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </tr>
                             </thead>
@@ -450,22 +468,22 @@
                             text: item.bank_name + '- ' + item.account_type + ' - ' + item.account_no
                         }));
                     });
-                    
-                      $('#chqid').val(id);
-                $('#upreceiver_name').val(beneficiary_name);
-                $('#upcheque_number').val(chequeno);
-                $('#upcheque_narrtion').val(narration);
-                $('#upissue_date').val(transaction_date);
-                $('#upamount').val(amount);
 
-                $("#upbankss  option[value=" + bank + "]").prop("selected", true);
+                    $('#chqid').val(id);
+                    $('#upreceiver_name').val(beneficiary_name);
+                    $('#upcheque_number').val(chequeno);
+                    $('#upcheque_narrtion').val(narration);
+                    $('#upissue_date').val(transaction_date);
+                    $('#upamount').val(amount);
 
-                $("#upbankss").change();
-                $('#editModal').modal('show');
+                    $("#upbankss  option[value=" + bank + "]").prop("selected", true);
+
+                    $("#upbankss").change();
+                    $('#editModal').modal('show');
                 });
 
 
-              
+
 
 
             }

@@ -3,8 +3,8 @@
 
 @section('content')
 <h1 class="text-center" style="color:grey">
-           Cheque Consolator
-        </h1>
+    Cheque Consolator
+</h1>
 <div class="login">
 
     <div class="login-body">
@@ -13,16 +13,23 @@
                             <img class="img-responsive" src="img/logo.png" height="30" width="70" alt="USAD">
                     
                 </a>-->
-<!--        <h4 style="color:grey;text-align: center">Cheque Consolator</h4>-->
+        <!--        <h4 style="color:grey;text-align: center">Cheque Consolator</h4>-->
         <h3 class="login-heading" style="color:grey">Sign in</h3>
         <p class="holder text-center"></p>
         <div class="login-form">
+
+            <div style="display: none" id='divresponse' role="alert" class="alert alert-danger alert-dismissible">
+                <button type="button" data-dismiss="alert" aria-label="Close" class="close">
+                    <span aria-hidden="true" class="mdi mdi-close"></span>
+                </button><span class="icon mdi mdi-close-circle-o"></span>
+                <span id='response'></span>
+            </div>
             <form id="loginForm" data-toggle="md-validator"  method="POST">
-                <input class="md-form-control" type="hidden" name="type" value="login">
+                <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
                 <div class="md-form-group md-label-floating">
-                    <input class="md-form-control" type="text" name="username" spellcheck="false" autocomplete="off" data-msg-required="Please enter username." required>
-                    <label class="md-control-label">Username</label>
+                    <input class="md-form-control" type="email" name="email" spellcheck="false" autocomplete="off" data-msg-required="Please enter username." required>
+                    <label class="md-control-label">Email</label>
                 </div>
                 <div class="md-form-group md-label-floating">
                     <input class="md-form-control" type="password" name="password" minlength="6" data-msg-minlength="Password must be 6 characters or more." data-msg-required="Please enter your password." required>
@@ -46,5 +53,39 @@
 
 <script src="{{ asset('js/vendor.min.js')}}"></script>
 <script src="{{ asset('js/elephant.min.js')}}"></script>
-<script src="{{ asset('js/login.js')}}"></script>
+<script type="text/javascript">
+
+$('#loginForm').on('submit', function (e) {
+    e.preventDefault();
+    var formData = $(this).serialize();
+
+    console.log(formData);
+
+    $('input:submit').attr("disabled", true);
+
+    $.ajax({
+        url: "{{url('authenticateuser')}}",
+        type: "POST",
+        data: formData,
+        success: function (data) {
+            console.log('data : ' + data);
+            if (data == "0") {
+                window.location = "dashboard";
+            } else {
+                $('#divresponse').show();
+                $('#response').html(data);
+            }
+
+        },
+        error: function (jXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+        }
+    });
+
+
+
+});
+
+
+</script>
 @endsection

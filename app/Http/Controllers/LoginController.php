@@ -28,8 +28,7 @@ class LoginController extends Controller {
 
         $users = Users::where([ ['email', '=', $email], ['password', '=', $password]])->get();
         $request->session()->regenerate();
-
-
+       
         if (!$users) {
             return '1';
         } else {
@@ -47,7 +46,7 @@ class LoginController extends Controller {
          
             $request->session()->put('permissions', $permissions);
             $request->session()->put('id', $id);
-            return $users;
+            return 0;
         }
     }
 

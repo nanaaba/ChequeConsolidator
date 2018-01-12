@@ -6,10 +6,3 @@
  * and open the template in the editor.
  */
 
-function checkifuserisauthentcated() {
-    if (Session::has('userid')) {
-        return true;
-    } else {
-        return false;
-    }
-}

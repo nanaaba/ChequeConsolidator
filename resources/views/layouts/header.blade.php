@@ -40,21 +40,21 @@
                 </button>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="visible-xs-block">
-                        <h4 class="navbar-text text-center">Hi,</h4>
+                        <h4 class="navbar-text text-center">Hi,{{ Session::get('name')}}</h4>
                     </li>
 
 
                     <li class="dropdown hidden-xs">
                         <button class="navbar-account-btn" data-toggle="dropdown" aria-haspopup="true">
-                            Hi
+                            Hi,{{ Session::get('name')}}
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
 
                             <li><a href="#">Profile</a></li>
-                            <li><a href="password-reset">Change Password</a></li>
+                            <li><a href="{{ url('changepassword') }}">Change Password</a></li>
 
-                            <li><a href="index.php">Sign out</a></li>
+                            <li><a href="{{ url('logout') }}">Sign out</a></li>
                         </ul>
                     </li>
 
@@ -65,13 +65,13 @@
                         </a>
                     </li>
                     <li class="visible-xs-block">
-                        <a href="password-reset">
+                        <a href="{{ url('changepassword') }}">
                             <span class="icon icon-power-off icon-lg icon-fw"></span>
                             Change Password
                         </a>
                     </li>
                     <li class="visible-xs-block">
-                        <a href="index.php">
+                        <a href="{{ url('logout') }}">
                             <span class="icon icon-power-off icon-lg icon-fw"></span>
                             Sign out
                         </a>

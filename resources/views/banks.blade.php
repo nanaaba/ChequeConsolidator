@@ -4,96 +4,105 @@
 
 <div class="layout-content-body">
 
-    <div class="text m-b">
-        <h3 class="m-b-0">New Bank</h3>
-    </div>
 
-    <div class="row">
-        <div class="panel">
-            <div class="panel-body">
-                <form id="saveBankForm">
-                    <div class="row">
-                        <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
+    <?php
+    $permissions = Session::get('permissions');
 
-                        <div class="col-md-4">
-                            <div class="form-group ">
-                                <label for="region" class="control-label">Bank  Name:</label>
-                                <input type="text" class="form-control" name="bank_name"  required>
-                            </div>
-                        </div>
+    if (in_array("ADD_COMPANY_BANK", $permissions)) {
+        ?>  
+        <div class="text m-b">
+            <h3 class="m-b-0">New Bank</h3>
+        </div>
 
-                        <div class="col-md-4">
+        <div class="row">
+            <div class="panel">
+                <div class="panel-body">
+                    <form id="saveBankForm">
+                        <div class="row">
+                            <input type="hidden" class="form-control form-control-lg input-lg"  name="_token" value="<?php echo csrf_token() ?>" />
 
-                            <div class="form-group">
-                                <label for="region" class="control-label"> Account Number:</label>
-                                <input type="text" class="form-control" name="account_number"  required>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="region" class="control-label">Bank  Name:</label>
+                                    <input type="text" class="form-control" name="bank_name"  required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group ">
-                                <label for="region" class="control-label">Account Type:</label>
-                                <select class="form-control select2" name="account_type" id="account_type"  required>
-                                    <option value="">Select --</option>
-                                    <option value="Savings">Savings</option>
-                                    <option value="Current">Current</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="region" class="control-label"> Currency:</label>
-                                <select class="form-control select2" name="currency" id="currency"  required>
-                                    <option value="">Select --</option>
-                                    <option value="GHS">GHS</option>
-                                    <option value="USD">USD</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
 
-                            <div class="form-group">
-                                <label for="region" class="control-label">Branch:</label>
-                                <input type="text" class="form-control" name="branch"  required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="region" class="control-label">Location:</label>
-                                <input type="text" class="form-control" name="location"  required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="region" class="control-label">Relationship Officer:</label>
-                                <input type="text" class="form-control" name="relationship_officer"  required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label for="region" class="control-label">Relationship Contact:</label>
-                                <input type="text" class="form-control" name="relationship_contact"  required>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group ">
-                                <label for="region" class="control-label">Company:</label>
-                                <select class="form-control select2 companies" name="company" id="companies"  required>
-                                    <option value="">Select --</option>
+                            <div class="col-md-4">
 
-                                </select>
+                                <div class="form-group">
+                                    <label for="region" class="control-label"> Account Number:</label>
+                                    <input type="text" class="form-control" name="account_number"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="region" class="control-label">Account Type:</label>
+                                    <select class="form-control select2" name="account_type" id="account_type"  required>
+                                        <option value="">Select --</option>
+                                        <option value="Savings">Savings</option>
+                                        <option value="Current">Current</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="region" class="control-label"> Currency:</label>
+                                    <select class="form-control select2" name="currency" id="currency"  required>
+                                        <option value="">Select --</option>
+                                        <option value="GHS">GHS</option>
+                                        <option value="USD">USD</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+
+                                <div class="form-group">
+                                    <label for="region" class="control-label">Branch:</label>
+                                    <input type="text" class="form-control" name="branch"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="region" class="control-label">Location:</label>
+                                    <input type="text" class="form-control" name="location"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="region" class="control-label">Relationship Officer:</label>
+                                    <input type="text" class="form-control" name="relationship_officer"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="region" class="control-label">Relationship Contact:</label>
+                                    <input type="text" class="form-control" name="relationship_contact"  required>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group ">
+                                    <label for="region" class="control-label">Company:</label>
+                                    <select class="form-control select2 companies" name="company" id="companies"  required>
+                                        <option value="">Select --</option>
+
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 pull-right">
-                            <button type="submit" class="btn btn-primary btn-block">Save</button>
+                        <div class="row">
+                            <div class="col-md-4 pull-right">
+                                <button type="submit" class="btn btn-primary btn-block">Save</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
+                </div>
             </div>
         </div>
-    </div>
+        <?php
+    }
+    ?>
 
     <!--    <div class="row">
             <div class="col-xs-12">
@@ -126,9 +135,19 @@
                                     <th>Branch</th>
                                     <th>Relationship Officer </th>
                                     <th>Date Created </th>
-                                    <th>Edit</th> 
-                                    <th>Delete</th>
+                                    <?php
+                                    if (in_array("EDIT_COMPANY_BANK", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELET_COMPANY_BANK", $permissions)) {
+                                        ?>  
 
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </tr>
                             </thead>
@@ -450,7 +469,9 @@
             success: function (data) {
 
                 console.log(data);
-                $("#usergroups  option[value='']").prop("selected", true);
+                $("#upcompany_id  option[value='']").prop("selected", true);
+                $("#upcurrency  option[value='']").prop("selected", true);
+                $("#upaccount_type  option[value='']").prop("selected", true);
 
 
                 var bank_name = data[0].bank_name;

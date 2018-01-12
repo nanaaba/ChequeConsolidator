@@ -20,41 +20,39 @@ use Illuminate\Support\Facades\Session;
 class AccountController extends Controller {
 
     public function showusergroups() {
+
+        $permissions = Session::get('permissions');
+
+
+        if (!in_array("VIEW_USERGROUP", $permissions)) {
+            return redirect('logout');
+        }
         return view('usergroups');
     }
 
-    public function showassignroles() {
-        return view('assignroles');
+    public function showchangepassword() {
+        return view('changepassword');
     }
 
     public function showrolesandpermissions() {
 
         $permissions = Session::get('permissions');
-        $id = Session::get('id');
 
-
-        if (empty($id)) {
-            return redirect('logout');
-        }
 
         if (!in_array("ASSIGN_ROLES", $permissions)) {
             return redirect('logout');
         }
-        return view('rolesandpermissions');
+        return view('assignroles');
     }
 
     public function showusers() {
-//        $id = Session::get('id');
-//        $permissions = Session::get('permissions');
-//
-//        if (empty($id)) {
-//            return redirect('logout');
-//        }
-//
-//
-//        if (!in_array("VIEW_USERS", $permissions)) {
-//            return redirect('logout');
-//        }
+        $permissions = Session::get('permissions');
+
+
+
+        if (!in_array("VIEW_USERS", $permissions)) {
+            return redirect('logout');
+        }
 
 
         return view('users');
@@ -129,6 +127,14 @@ class AccountController extends Controller {
         } else {
             return '0';
         }
+    }
+
+    public function updatepassword(Request $request) {
+        $id = Session::get('id');
+
+        $update = Users::find($id);
+        $update->password = md5($request['password']);
+        $update->save();
     }
 
     public function getPermissions() {

@@ -16,39 +16,36 @@ Route::get('/', function () {
     return view('login');
 });
 
-Route::get('/dashboard', function () {
 
-    return view('dashboard');
-});
 
+Route::post('authenticateuser', 'LoginController@authenticateUser');
+
+
+
+
+
+
+
+
+
+
+Route::group(['middleware' => 'check-userauth'], function () {
+
+
+Route::get('/dashboard', function () {return view('dashboard');});
 Route::get('companies', 'CompanyController@showcompanies');
 Route::get('banks', 'BankController@showbanks');
 Route::get('cheques/withdrawals','ChequeController@showwithdrawalcheques');
 Route::get('cheques/deposited','ChequeController@showdepositedcheques');
 Route::get('account/usergroups','AccountController@showusergroups');
-Route::get('account/assignroles','AccountController@showassignroles');
+Route::get('account/assignroles','AccountController@showrolesandpermissions');
 Route::get('account/users','AccountController@showusers');
-
-
-
-
-Route::get('/reports', function () {
-
-    return view('reports');
-});
-
-Route::get('monitoring', function () {
-
-    return view('chequemonitoring');
-});
-
-
-
+Route::get('/reports', 'ReportController@showreports');
+Route::get('monitoring', 'ReportController@showmonitoring');
 //apis
 Route::get('companies/all', 'CompanyController@getCompanies');
 Route::post('companies/savecompany', 'CompanyController@saveCompany');
 Route::get('companies/banks/{companyid}', 'CompanyController@getCompanyBanks');
-
 Route::get('bank/all', 'BankController@getBanks');
 Route::post('banks/savebank', 'BankController@saveBank');
 Route::post('cheques/issued', 'ChequeController@saveWithdrawalCheque');
@@ -82,16 +79,16 @@ Route::delete('cheques/{id}', 'ChequeController@deleteCompanyCheque');
 Route::delete('companies/{id}', 'CompanyController@deleteCompany');
 Route::delete('bank/companybank/{id}', 'BankController@deleteCompanyBank');
 
-
 Route::get('cheques/{id}', 'ChequeController@getChequeDetail');
 Route::get('bank/{id}', 'BankController@getCompanyBankDetail');
 Route::get('companies/{id}', 'CompanyController@getCompanyDetail');
 Route::post('getaccountstatement', 'ReportController@getAccountStatement');
+//changepassword
+Route::get('changepassword', 'AccountController@showchangepassword');
+//account/updatepassword
+Route::post('account/updatepassword', 'AccountController@updatepassword');
 
-
-
-
-
+});
 
 
 
@@ -109,4 +106,4 @@ Route::get('/logout', function() {
         //Uncomment to see the logs record
         //\Log::info("Session after: ".print_r($request->session()->all(), true));
         return redirect('/');
-    });
+});

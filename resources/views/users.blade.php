@@ -9,6 +9,11 @@
         <h3 class="m-b-0">Users</h3>
     </div>
 
+    <?php
+    $permissions = Session::get('permissions');
+
+    if (in_array("ADD_USER", $permissions)) {
+        ?> 
     <div class="row">
         <div class="col-xs-12">
             <div class="col-md-10 ">
@@ -19,6 +24,9 @@
             </div>
         </div>
     </div>
+    <?php
+    }
+    ?>
 
     <div style="margin-bottom:5px;">
 
@@ -44,10 +52,19 @@
                                     <th>Created By</th>
                                     <th>Date Created </th>
 
-                                    <th>Edit </th>
+                                      <?php
+                                    if (in_array("EDIT_USER", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELETE_USER", $permissions)) {
+                                        ?>  
 
-                                    <th>Delete </th>
-
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody></tbody>

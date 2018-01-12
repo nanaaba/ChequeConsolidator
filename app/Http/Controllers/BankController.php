@@ -16,12 +16,20 @@ use Illuminate\Support\Facades\Session;
 class BankController extends Controller {
 
     public function showbanks() {
+
+
+        $permissions = Session::get('permissions');
+
+        if (!in_array("VIEW_COMPANY_BANK", $permissions)) {
+            return redirect('logout');
+        }
+
         return view('banks');
     }
 
     public function getBanks() {
 
-       // $banks = DB::table('banks_view')->get();
+        // $banks = DB::table('banks_view')->get();
         return DB::table('banks_view')->where('active', 0)
                         ->get();
         //return $banks;
@@ -41,12 +49,12 @@ class BankController extends Controller {
         $new->currency = $data['currency'];
         $new->account_no = $data['account_number'];
         $new->company_id = $data['company'];
-        $new->created_by = '1';
+        $new->created_by = Session::get('id');
 
 
         try {
 
-            $saved = $new->save();
+            $new->save();
             $bank_id = $new->id;
             $this->saveCompanyBank($data['company'], $bank_id);
             return '0';
@@ -63,13 +71,12 @@ class BankController extends Controller {
                 ['company_id' => $companyid, 'bank_id' => $bank_id]
         );
     }
-    
-    
-      public function updateCompanyBank(Request $request) {
+
+    public function updateCompanyBank(Request $request) {
 
         $data = $request->all();
         $id = $data['id'];
-        
+
         $new = Bank::find($id);
         $new->bank_name = $data['bank_name'];
         $new->location = $data['location'];
@@ -79,7 +86,10 @@ class BankController extends Controller {
         $new->account_type = $data['account_type'];
         $new->currency = $data['currency'];
         $new->account_no = $data['account_number'];
-                $new->company_id = $data['company'];
+        $new->company_id = $data['company'];
+        $new->modified_by = Session::get('id');
+        $new->last_modified = date('Y-m-d H:i:s');
+
 
         $saved = $new->save();
         if (!$saved) {
@@ -94,6 +104,9 @@ class BankController extends Controller {
 
         $update = Bank::find($id);
         $update->active = '1';
+        $update->modified_by = Session::get('id');
+        $update->last_modified = date('Y-m-d H:i:s');
+
         $saved = $update->save();
         if (!$saved) {
             return '1';
@@ -101,10 +114,10 @@ class BankController extends Controller {
             return '0';
         }
     }
-    
-       public function getCompanyBankDetail($id) {
-        
-        
+
+    public function getCompanyBankDetail($id) {
+
+
         return Bank::where('id', $id)
                         ->get();
     }

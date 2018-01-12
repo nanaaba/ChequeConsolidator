@@ -3,23 +3,27 @@
 @section('content')
 
 <div class="layout-content-body">
+    <?php
+    $permissions = Session::get('permissions');
 
-    <div class="text m-b">
-        <h3 class="m-b-0"> Deposited Cheques</h3>
-    </div>
+    if (in_array("ADD_DEPOSIT_CHEQUE", $permissions)) {
+        ?> 
+        <div class="text m-b">
+            <h3 class="m-b-0"> Deposited Cheques</h3>
+        </div>
 
-    <!--    <div class="row">
-            <div class="col-xs-12">
-                <div class="col-md-10 ">
+        <!--    <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-md-10 ">
+        
+                    </div>
+                    <div class="col-md-2 ">
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
+                    </div>
+                </div>
+            </div>-->
+
     
-                </div>
-                <div class="col-md-2 ">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commodityModal" data-whatever="@mdo"> New Cheque</button>
-                </div>
-            </div>
-        </div>-->
-
-
     <div class="row">
         <div class="panel">
             <div class="panel-body">
@@ -109,7 +113,9 @@
         </div>
     </div>
 
-
+    <?php
+    }
+    ?>
     <div style="margin-bottom:5px;">
 
     </div>
@@ -131,9 +137,19 @@
                                     <th> Clearing Date </th>
 
                                     <th>Cheque Type</th>
-                                    <th>Edit</th> 
-                                    <th>Delete</th>
+                                   <?php
+                                    if (in_array("EDIT_CHEQUE", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELETE_CHEQUE", $permissions)) {
+                                        ?>  
 
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </tr>
                             </thead>

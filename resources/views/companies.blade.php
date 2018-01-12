@@ -2,8 +2,14 @@
 
 @section('content')
 
-<div class="layout-content-body">
 
+
+<div class="layout-content-body">
+ <?php
+    $permissions = Session::get('permissions');
+
+    if (in_array("ADD_COMPANY", $permissions)) {
+        ?> 
     <div class="text m-b">
         <h3 class="m-b-0">New Company</h3>
     </div>
@@ -54,6 +60,9 @@
             </div>
         </div>
     </div>
+    <?php
+    }
+    ?>
 
     <!--    <div class="row">
             <div class="col-xs-12">
@@ -83,8 +92,19 @@
                                     <th>Location</th>
                                     <th>Description</th>
                                     <th>Contact</th>
-                                    <th>Edit</th> 
-                                    <th>Delete</th>
+                                    <?php
+                                    if (in_array("EDIT_COMPANY", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELETE_COMPANY", $permissions)) {
+                                        ?>  
+
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
 
                                 </tr>
                             </thead>
@@ -103,7 +123,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="exampleModalLabel">New User</h4>
+                <h4 class="modal-title" id="exampleModalLabel"> User Information</h4>
             </div>
                <div class="modal-body">
 

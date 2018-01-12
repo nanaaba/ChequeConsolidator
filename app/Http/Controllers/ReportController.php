@@ -16,6 +16,23 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller {
 
+    
+    
+    public function showreports() {
+         $permissions = Session::get('permissions');
+
+        if (!in_array("VIEW_REPORTS", $permissions)) {
+            return redirect('logout');
+        }
+            return view('reports');
+
+    }
+    
+     public function showmonitoring() {
+            return view('chequemonitoring');
+
+    }
+    
     public function getAccountStatement(Request $request) {
 
         $bank = $request['bank'];

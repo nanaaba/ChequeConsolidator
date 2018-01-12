@@ -8,6 +8,11 @@
         <h3 class="m-b-0">User Groups</h3>
     </div>
 
+    <?php
+    $permissions = Session::get('permissions');
+
+    if (in_array("ADD_USERGROUP", $permissions)) {
+        ?> 
     <div class="row">
         <div class="col-xs-12">
             <div class="col-md-10 ">
@@ -18,6 +23,9 @@
             </div>
         </div>
     </div>
+    <?php
+    }
+    ?>
 
     <div style="margin-bottom:5px;">
 
@@ -34,11 +42,19 @@
                                     <th>Name</th>
 
 
-                                    <th>Edit </th>
+                                      <?php
+                                    if (in_array("EDIT_USERGROUP", $permissions)) {
+                                        ?>  
+                                        <th>Edit</th> 
+                                        <?php
+                                    }
+                                    if (in_array("DELETE_USERGROUP", $permissions)) {
+                                        ?>  
 
-
-                                    <th>Delete </th>
-
+                                        <th>Delete</th>
+                                        <?php
+                                    }
+                                    ?>
                                 </tr>
                             </thead>
                             <tbody></tbody>

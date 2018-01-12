@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Session;
 class CompanyController extends Controller {
 
     public function showcompanies() {
+
+        $permissions = Session::get('permissions');
+
+        if (!in_array("VIEW_COMPANIES", $permissions)) {
+            return redirect('logout');
+        }
         return view('companies');
     }
 
@@ -38,7 +44,7 @@ class CompanyController extends Controller {
         $new->location = $data['location'];
         $new->contact = $data['contact'];
         $new->description = $data['description'];
-        $new->created_by = '1';
+        $new->created_by = Session::get('id');
         $new->active = '0';
 
 
@@ -64,6 +70,9 @@ class CompanyController extends Controller {
         $new->location = $data['location'];
         $new->contact = $data['contact'];
         $new->description = $data['description'];
+        $new->modified_by = Session::get('id');
+        $new->last_modified = date('Y-m-d H:i:s');
+
         $saved = $new->save();
         if (!$saved) {
             return '1';
@@ -77,6 +86,9 @@ class CompanyController extends Controller {
 
         $update = Company::find($id);
         $update->active = '1';
+        $update->modified_by = Session::get('id');
+        $update->last_modified = date('Y-m-d H:i:s');
+
         $saved = $update->save();
         if (!$saved) {
             return '1';
@@ -84,10 +96,10 @@ class CompanyController extends Controller {
             return '0';
         }
     }
-    
-     public function getCompanyDetail($id) {
-        
-        
+
+    public function getCompanyDetail($id) {
+
+
         return Company::where('id', $id)
                         ->get();
     }

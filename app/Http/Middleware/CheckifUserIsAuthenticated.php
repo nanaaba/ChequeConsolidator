@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 
 class CheckifUserIsAuthenticated {
 
@@ -16,11 +17,19 @@ class CheckifUserIsAuthenticated {
     public function handle($request, Closure $next) {
 
 
-        if (checkifuserisauthentcated()) {
+        if ($this->checkifuserisauthentcated()) {
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect('/logout');
     }
+    
+    private function checkifuserisauthentcated() {
+    if (Session::has('id')) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 }
