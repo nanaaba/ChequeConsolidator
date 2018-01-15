@@ -24,7 +24,7 @@ class AccountController extends Controller {
         $permissions = Session::get('permissions');
 
 
-        if (!in_array("VIEW_USERGROUP", $permissions)) {
+        if (!in_array("VIEW_USERGROUPS", $permissions)) {
             return redirect('logout');
         }
         return view('usergroups');
